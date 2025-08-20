@@ -8,6 +8,7 @@ import AddVehicle from "@/components/pages/AddVehicle"
 import Leads from "@/components/pages/Leads"
 import LeadDetails from "@/components/pages/LeadDetails"
 import DealDesk from "@/components/pages/DealDesk"
+import Invoicing from "@/components/pages/Invoicing"
 import Reports from "@/components/pages/Reports"
 import Settings from "@/components/pages/Settings"
 import CustomerPortal from "@/components/pages/CustomerPortal"
@@ -25,6 +26,7 @@ function App() {
             <Route path="leads" element={<Leads />} />
             <Route path="leads/:id" element={<LeadDetails />} />
             <Route path="deals" element={<DealDesk />} />
+            <Route path="invoicing" element={<Invoicing />} />
             <Route path="reports" element={<Reports />} />
             <Route path="settings" element={<Settings />} />
 <Route path="customer-portal" element={<CustomerPortal />} />

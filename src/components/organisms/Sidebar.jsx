@@ -8,6 +8,7 @@ const navigation = [
     { name: "Inventory", path: "/inventory", icon: "Car" },
     { name: "Leads", path: "/leads", icon: "Users" },
     { name: "Deal Desk", path: "/deals", icon: "FileText" },
+    { name: "Invoicing", path: "/invoicing", icon: "Receipt" },
     { name: "Customer Portal", path: "/customer-portal", icon: "Upload" },
     { name: "Reports", path: "/reports", icon: "BarChart3" },
 { name: "Settings", path: "/settings", icon: "Settings" },

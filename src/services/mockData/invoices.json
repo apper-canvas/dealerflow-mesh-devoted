@@ -1,0 +1,308 @@
+[
+  {
+    "Id": 1,
+    "invoiceNumber": "INV-2024-001",
+    "dealId": 1,
+    "customerId": 1,
+    "customerName": "John Smith",
+    "customerEmail": "john.smith@email.com",
+    "customerAddress": {
+      "street": "123 Main St",
+      "city": "Anytown",
+      "state": "CA",
+      "zipCode": "12345"
+    },
+    "issueDate": "2024-01-15T10:00:00Z",
+    "dueDate": "2024-02-14T23:59:59Z",
+    "status": "Paid",
+    "paymentStatus": "Completed",
+    "paymentDate": "2024-01-18T14:30:00Z",
+    "paymentMethod": "Bank Transfer",
+    "vehicle": {
+      "year": 2022,
+      "make": "Toyota",
+      "model": "Camry",
+      "vin": "1HGBH41JXMN109186",
+      "mileage": 15000
+    },
+    "lineItems": [
+      {
+        "id": 1,
+        "description": "2022 Toyota Camry - Vehicle Sale",
+        "quantity": 1,
+        "unitPrice": 28900.00,
+        "total": 28900.00
+      },
+      {
+        "id": 2,
+        "description": "Extended Warranty (3 years)",
+        "quantity": 1,
+        "unitPrice": 1200.00,
+        "total": 1200.00
+      },
+      {
+        "id": 3,
+        "description": "Documentation Fee",
+        "quantity": 1,
+        "unitPrice": 299.00,
+        "total": 299.00
+      }
+    ],
+    "subtotal": 30399.00,
+    "taxRate": 8.25,
+    "taxAmount": 2507.92,
+    "totalAmount": 32906.92,
+    "amountPaid": 32906.92,
+    "balanceDue": 0.00,
+    "notes": "Thank you for your business! Vehicle delivered and financing completed.",
+    "terms": "Payment due within 30 days. Late payments subject to 1.5% monthly service charge.",
+    "createdBy": "Sarah Johnson",
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-01-18T14:30:00Z"
+  },
+  {
+    "Id": 2,
+    "invoiceNumber": "INV-2024-002",
+    "dealId": 2,
+    "customerId": 2,
+    "customerName": "Michael Brown",
+    "customerEmail": "m.brown@email.com",
+    "customerAddress": {
+      "street": "456 Oak Avenue",
+      "city": "Springfield",
+      "state": "TX",
+      "zipCode": "75001"
+    },
+    "issueDate": "2024-01-20T09:30:00Z",
+    "dueDate": "2024-02-19T23:59:59Z",
+    "status": "Sent",
+    "paymentStatus": "Pending",
+    "paymentDate": null,
+    "paymentMethod": null,
+    "vehicle": {
+      "year": 2021,
+      "make": "Honda",
+      "model": "Accord",
+      "vin": "1HGCV1F3XLA004321",
+      "mileage": 22000
+    },
+    "lineItems": [
+      {
+        "id": 1,
+        "description": "2021 Honda Accord - Vehicle Sale",
+        "quantity": 1,
+        "unitPrice": 24500.00,
+        "total": 24500.00
+      },
+      {
+        "id": 2,
+        "description": "Paint Protection Package",
+        "quantity": 1,
+        "unitPrice": 800.00,
+        "total": 800.00
+      },
+      {
+        "id": 3,
+        "description": "Documentation Fee",
+        "quantity": 1,
+        "unitPrice": 299.00,
+        "total": 299.00
+      }
+    ],
+    "subtotal": 25599.00,
+    "taxRate": 7.75,
+    "taxAmount": 1983.92,
+    "totalAmount": 27582.92,
+    "amountPaid": 0.00,
+    "balanceDue": 27582.92,
+    "notes": "Invoice for Honda Accord purchase. Please review and process payment.",
+    "terms": "Payment due within 30 days. Late payments subject to 1.5% monthly service charge.",
+    "createdBy": "Mike Wilson",
+    "createdAt": "2024-01-20T09:30:00Z",
+    "updatedAt": "2024-01-20T09:30:00Z"
+  },
+  {
+    "Id": 3,
+    "invoiceNumber": "INV-2024-003",
+    "dealId": 3,
+    "customerId": 3,
+    "customerName": "Lisa Garcia",
+    "customerEmail": "lisa.garcia@email.com",
+    "customerAddress": {
+      "street": "789 Pine Street",
+      "city": "Austin",
+      "state": "TX",
+      "zipCode": "73301"
+    },
+    "issueDate": "2024-01-25T11:15:00Z",
+    "dueDate": "2024-02-24T23:59:59Z",
+    "status": "Overdue",
+    "paymentStatus": "Overdue",
+    "paymentDate": null,
+    "paymentMethod": null,
+    "vehicle": {
+      "year": 2020,
+      "make": "Ford",
+      "model": "Explorer",
+      "vin": "1FM5K8D84LGA12345",
+      "mileage": 35000
+    },
+    "lineItems": [
+      {
+        "id": 1,
+        "description": "2020 Ford Explorer - Vehicle Sale",
+        "quantity": 1,
+        "unitPrice": 32000.00,
+        "total": 32000.00
+      },
+      {
+        "id": 2,
+        "description": "Towing Package Installation",
+        "quantity": 1,
+        "unitPrice": 450.00,
+        "total": 450.00
+      },
+      {
+        "id": 3,
+        "description": "Documentation Fee",
+        "quantity": 1,
+        "unitPrice": 299.00,
+        "total": 299.00
+      }
+    ],
+    "subtotal": 32749.00,
+    "taxRate": 8.25,
+    "taxAmount": 2701.79,
+    "totalAmount": 35450.79,
+    "amountPaid": 0.00,
+    "balanceDue": 35450.79,
+    "notes": "OVERDUE: Payment was due on February 24th. Please contact our office immediately.",
+    "terms": "Payment due within 30 days. Late payments subject to 1.5% monthly service charge.",
+    "createdBy": "Jennifer Lopez",
+    "createdAt": "2024-01-25T11:15:00Z",
+    "updatedAt": "2024-02-25T16:00:00Z"
+  },
+  {
+    "Id": 4,
+    "invoiceNumber": "INV-2024-004",
+    "dealId": null,
+    "customerId": 4,
+    "customerName": "David Wilson",
+    "customerEmail": "d.wilson@email.com",
+    "customerAddress": {
+      "street": "321 Elm Drive",
+      "city": "Houston",
+      "state": "TX",
+      "zipCode": "77001"
+    },
+    "issueDate": "2024-02-01T08:45:00Z",
+    "dueDate": "2024-03-02T23:59:59Z",
+    "status": "Draft",
+    "paymentStatus": "Not Sent",
+    "paymentDate": null,
+    "paymentMethod": null,
+    "vehicle": null,
+    "lineItems": [
+      {
+        "id": 1,
+        "description": "Vehicle Service - Oil Change & Inspection",
+        "quantity": 1,
+        "unitPrice": 89.99,
+        "total": 89.99
+      },
+      {
+        "id": 2,
+        "description": "Brake Pad Replacement",
+        "quantity": 1,
+        "unitPrice": 320.00,
+        "total": 320.00
+      },
+      {
+        "id": 3,
+        "description": "Air Filter Replacement",
+        "quantity": 1,
+        "unitPrice": 45.00,
+        "total": 45.00
+      }
+    ],
+    "subtotal": 454.99,
+    "taxRate": 8.25,
+    "taxAmount": 37.54,
+    "totalAmount": 492.53,
+    "amountPaid": 0.00,
+    "balanceDue": 492.53,
+    "notes": "Service invoice - draft pending approval",
+    "terms": "Payment due within 30 days. Late payments subject to 1.5% monthly service charge.",
+    "createdBy": "Tom Anderson",
+    "createdAt": "2024-02-01T08:45:00Z",
+    "updatedAt": "2024-02-01T08:45:00Z"
+  },
+  {
+    "Id": 5,
+    "invoiceNumber": "INV-2024-005",
+    "dealId": 4,
+    "customerId": 5,
+    "customerName": "Amanda Johnson",
+    "customerEmail": "amanda.j@email.com",
+    "customerAddress": {
+      "street": "555 Maple Lane",
+      "city": "Dallas",
+      "state": "TX",
+      "zipCode": "75201"
+    },
+    "issueDate": "2024-02-10T13:20:00Z",
+    "dueDate": "2024-03-11T23:59:59Z",
+    "status": "Partially Paid",
+    "paymentStatus": "Partial",
+    "paymentDate": "2024-02-15T10:00:00Z",
+    "paymentMethod": "Credit Card",
+    "vehicle": {
+      "year": 2023,
+      "make": "Chevrolet",
+      "model": "Silverado",
+      "vin": "1GCUKREC5PF123456",
+      "mileage": 8500
+    },
+    "lineItems": [
+      {
+        "id": 1,
+        "description": "2023 Chevrolet Silverado - Vehicle Sale",
+        "quantity": 1,
+        "unitPrice": 42000.00,
+        "total": 42000.00
+      },
+      {
+        "id": 2,
+        "description": "Bed Liner Installation",
+        "quantity": 1,
+        "unitPrice": 350.00,
+        "total": 350.00
+      },
+      {
+        "id": 3,
+        "description": "Extended Warranty (5 years)",
+        "quantity": 1,
+        "unitPrice": 1800.00,
+        "total": 1800.00
+      },
+      {
+        "id": 4,
+        "description": "Documentation Fee",
+        "quantity": 1,
+        "unitPrice": 299.00,
+        "total": 299.00
+      }
+    ],
+    "subtotal": 44449.00,
+    "taxRate": 8.25,
+    "taxAmount": 3667.04,
+    "totalAmount": 48116.04,
+    "amountPaid": 20000.00,
+    "balanceDue": 28116.04,
+    "notes": "Partial payment received. Balance due for remaining amount.",
+    "terms": "Payment due within 30 days. Late payments subject to 1.5% monthly service charge.",
+    "createdBy": "Sarah Johnson",
+    "createdAt": "2024-02-10T13:20:00Z",
+    "updatedAt": "2024-02-15T10:00:00Z"
+  }
+]
