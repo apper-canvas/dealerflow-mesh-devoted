@@ -13,6 +13,7 @@ import Reports from "@/components/pages/Reports"
 import Settings from "@/components/pages/Settings"
 import CustomerPortal from "@/components/pages/CustomerPortal"
 import Reconditioning from "@/components/pages/Reconditioning"
+import Vendors from "@/components/pages/Vendors"
 function App() {
   return (
     <Router>
@@ -31,6 +32,7 @@ function App() {
             <Route path="settings" element={<Settings />} />
 <Route path="customer-portal" element={<CustomerPortal />} />
             <Route path="reconditioning" element={<Reconditioning />} />
+            <Route path="vendors" element={<Vendors />} />
           </Route>
         </Routes>
         

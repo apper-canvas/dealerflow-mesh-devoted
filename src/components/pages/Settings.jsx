@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState("dealership");
-  const [settings, setSettings] = useState({
+const [settings, setSettings] = useState({
     // Dealership Settings
     dealershipName: "Premier Auto Sales",
     address: "123 Main Street, Downtown",
@@ -32,6 +32,12 @@ const Settings = () => {
     inventoryAlerts: true,
     dealAlerts: true,
     
+    // Vendor Settings
+    vendorAutoApproval: false,
+    vendorPaymentTerms: "30",
+    requireVendorInsurance: true,
+    vendorRatingThreshold: "3",
+    
     // User Preferences
     dateFormat: "MM/dd/yyyy",
     timeFormat: "12",
@@ -52,9 +58,10 @@ const Settings = () => {
   };
 
   const tabs = [
-    { id: "dealership", name: "Dealership Info", icon: "Building" },
+{ id: "dealership", name: "Dealership Info", icon: "Building" },
     { id: "business", name: "Business Rules", icon: "Settings" },
     { id: "notifications", name: "Notifications", icon: "Bell" },
+    { id: "vendors", name: "Vendor Settings", icon: "Truck" },
     { id: "preferences", name: "Preferences", icon: "User" }
   ];
 
@@ -337,9 +344,74 @@ const Settings = () => {
             className="input-field"
           >
             <option value="English">English</option>
-            <option value="Spanish">Español</option>
+<option value="Spanish">Español</option>
             <option value="French">Français</option>
           </select>
+        </div>
+      </div>
+    </Card>
+  );
+
+  const renderVendorSettings = () => (
+    <Card>
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-lg font-medium text-slate-900 mb-4">Vendor Management</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={settings.vendorAutoApproval}
+                  onChange={(e) => handleSettingChange('vendorAutoApproval', e.target.checked)}
+                  className="rounded border-slate-300 text-primary-600 focus:ring-primary-500"
+                />
+                <span className="ml-2 text-sm text-slate-700">Auto-approve new vendors</span>
+              </label>
+            </div>
+            <div>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={settings.requireVendorInsurance}
+                  onChange={(e) => handleSettingChange('requireVendorInsurance', e.target.checked)}
+                  className="rounded border-slate-300 text-primary-600 focus:ring-primary-500"
+                />
+                <span className="ml-2 text-sm text-slate-700">Require vendor insurance documentation</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">Default Payment Terms</label>
+            <select
+              value={settings.vendorPaymentTerms}
+              onChange={(e) => handleSettingChange('vendorPaymentTerms', e.target.value)}
+              className="input-field"
+            >
+              <option value="15">Net 15</option>
+              <option value="30">Net 30</option>
+              <option value="45">Net 45</option>
+              <option value="60">Net 60</option>
+              <option value="90">Net 90</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">Minimum Vendor Rating</label>
+            <select
+              value={settings.vendorRatingThreshold}
+              onChange={(e) => handleSettingChange('vendorRatingThreshold', e.target.value)}
+              className="input-field"
+            >
+              <option value="1">1 Star</option>
+              <option value="2">2 Stars</option>
+              <option value="3">3 Stars</option>
+              <option value="4">4 Stars</option>
+              <option value="5">5 Stars</option>
+            </select>
+          </div>
         </div>
       </div>
     </Card>
@@ -376,10 +448,11 @@ const Settings = () => {
       </div>
 
       {/* Tab Content */}
-      <div className="py-4">
+<div className="py-4">
         {activeTab === "dealership" && renderDealershipSettings()}
         {activeTab === "business" && renderBusinessSettings()}
         {activeTab === "notifications" && renderNotificationSettings()}
+        {activeTab === "vendors" && renderVendorSettings()}
         {activeTab === "preferences" && renderPreferences()}
       </div>
 
