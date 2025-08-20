@@ -11,8 +11,7 @@ import Loading from "@/components/ui/Loading";
 import Button from "@/components/atoms/Button";
 import Badge from "@/components/atoms/Badge";
 import Card from "@/components/atoms/Card";
-import ListingManager from "@/components/ListingManager";
-
+import ListingManager from "@/components/molecules/ListingManager";
 const VehicleDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
