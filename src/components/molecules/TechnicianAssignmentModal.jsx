@@ -1,13 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import Button from '@/components/atoms/Button';
-import Input from '@/components/atoms/Input';
-import Card from '@/components/atoms/Card';
-import Badge from '@/components/atoms/Badge';
-import ApperIcon from '@/components/ApperIcon';
-import { cn } from '@/utils/cn';
-import { technicianService } from '@/services/api/reconditioningService';
-import { format } from 'date-fns';
+import React, { useState, useEffect } from 'react'
+import Button from '@/components/atoms/Button'
+import Input from '@/components/atoms/Input'
+import Card from '@/components/atoms/Card'
+import Badge from '@/components/atoms/Badge'
+import ApperIcon from '@/components/ApperIcon'
+import { cn } from '@/utils/cn'
+import { technicianService } from '@/services/api/reconditioningService'
+import { format, isValid, parseISO } from 'date-fns'
 
+// Helper function to safely format dates
+const safeFormatDate = (dateValue, formatStr = 'MMM d, h:mm a') => {
+  try {
+    if (!dateValue) return 'Not specified';
+    const date = typeof dateValue === 'string' ? parseISO(dateValue) : new Date(dateValue);
+    if (!isValid(date)) return 'Invalid date';
+    return format(date, formatStr);
+  } catch (error) {
+    console.warn('Date formatting error:', error);
+    return 'Invalid date';
+  }
+};
 function TechnicianAssignmentModal({ 
   isOpen, 
   onClose, 

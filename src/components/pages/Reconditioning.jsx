@@ -558,14 +558,27 @@ const service = reconditioningService.serviceTypes.find(s => s.name === serviceT
         </div>
       )}
 
-      {/* Technician Assignment Modal */}
+{/* Technician Assignment Modal */}
       <TechnicianAssignmentModal
         isOpen={showTechnicianModal}
         onClose={() => setShowTechnicianModal(false)}
         onAssign={handleTechnicianAssign}
         serviceType={newAppointment.serviceType}
         startDate={newAppointment.startDate}
-        endDate={addHours(new Date(newAppointment.startDate), newAppointment.estimatedHours).toISOString()}
+        endDate={(() => {
+          try {
+            const startDate = newAppointment.startDate || new Date().toISOString();
+            const hours = newAppointment.estimatedHours || 4;
+            const date = new Date(startDate);
+            if (isNaN(date.getTime())) {
+              return new Date(Date.now() + (hours * 60 * 60 * 1000)).toISOString();
+            }
+            return addHours(date, hours).toISOString();
+          } catch (error) {
+            console.warn('Date calculation error:', error);
+            return new Date(Date.now() + (4 * 60 * 60 * 1000)).toISOString();
+          }
+        })()}
       />
     </div>
   );
