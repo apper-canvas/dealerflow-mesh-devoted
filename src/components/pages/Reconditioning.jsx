@@ -86,7 +86,7 @@ function Reconditioning() {
   };
 
   const handleServiceTypeSelect = (serviceType) => {
-    const service = require('@/services/api/reconditioningService').serviceTypes.find(s => s.name === serviceType);
+const service = reconditioningService.serviceTypes.find(s => s.name === serviceType);
     setNewAppointment(prev => ({
       ...prev,
       serviceType: serviceType,
