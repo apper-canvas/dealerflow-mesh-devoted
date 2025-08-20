@@ -9,34 +9,42 @@ import Error from "@/components/ui/Error";
 import ApperIcon from "@/components/ApperIcon";
 import { leadService } from "@/services/api/leadService";
 import { vehicleService } from "@/services/api/vehicleService";
+import { dealService } from "@/services/api/dealService";
 import { formatDistanceToNow, format } from "date-fns";
 import { toast } from "react-toastify";
-
 const LeadDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [lead, setLead] = useState(null);
+const [lead, setLead] = useState(null);
   const [vehicles, setVehicles] = useState([]);
+  const [deals, setDeals] = useState([]);
+  const [aiRecommendations, setAiRecommendations] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [newNote, setNewNote] = useState("");
   const [showAddNote, setShowAddNote] = useState(false);
-
   const loadData = async () => {
-    setLoading(true);
+setLoading(true);
     setError("");
     try {
-      const [leadData, vehiclesData] = await Promise.all([
+      const [leadData, vehiclesData, dealsData] = await Promise.all([
         leadService.getById(id),
-        vehicleService.getAll()
+        vehicleService.getAll(),
+        dealService.getAll()
       ]);
       
       if (leadData) {
         setLead(leadData);
+        
+        // Get AI recommendations for this lead
+        const recommendations = await leadService.getVehicleRecommendations(id, vehiclesData, dealsData);
+        setAiRecommendations(recommendations);
       } else {
         setError("Lead not found");
       }
+      
       setVehicles(vehiclesData);
+      setDeals(dealsData);
     } catch (err) {
       setError("Failed to load lead details. Please try again.");
     } finally {
@@ -171,10 +179,93 @@ const LeadDetails = () => {
             </div>
           </Card>
 
+{/* AI Recommendations */}
+          {aiRecommendations && (
+            <Card>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-slate-900">AI-Powered Recommendations</h3>
+                <div className="flex items-center space-x-2">
+                  <ApperIcon name="Brain" className="h-5 w-5 text-purple-600" />
+                  <Badge variant="secondary">
+                    {aiRecommendations.engagementScore}/100 Score
+                  </Badge>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                {aiRecommendations.recommendations.slice(0, 3).map((recommendation) => (
+                  <div key={recommendation.vehicleId} className="border border-slate-200 rounded-lg p-4 bg-gradient-to-r from-slate-50 to-blue-50">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-start space-x-3">
+                        <img
+                          src={recommendation.vehicle.photos?.[0] || "https://images.unsplash.com/photo-1494697536454-6f39e2cc972d?w=100&h=75&fit=crop"}
+                          alt={`${recommendation.vehicle.year} ${recommendation.vehicle.make} ${recommendation.vehicle.model}`}
+                          className="w-20 h-16 object-cover rounded"
+                        />
+                        <div>
+                          <p className="font-semibold text-slate-900">
+                            {recommendation.vehicle.year} {recommendation.vehicle.make} {recommendation.vehicle.model}
+                          </p>
+                          <p className="text-sm text-slate-600">{recommendation.vehicle.trim}</p>
+                          <div className="flex items-center space-x-2 mt-1">
+                            <Badge variant="primary" size="sm">#{recommendation.recommendationRank}</Badge>
+                            <span className="text-sm font-medium text-blue-600">
+                              {recommendation.aiScore}% Match
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="text-right">
+                        <p className="font-bold text-primary-600 text-lg">
+                          ${recommendation.vehicle.askingPrice?.toLocaleString()}
+                        </p>
+                        {recommendation.estimatedMonthlyPayment > 0 && (
+                          <p className="text-sm text-slate-500">
+                            ~${recommendation.estimatedMonthlyPayment}/mo
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    
+                    <div className="mb-3">
+                      <p className="text-sm font-medium text-slate-700 mb-2">Why this matches:</p>
+                      <div className="flex flex-wrap gap-2">
+                        {recommendation.matchReasons.map((reason, idx) => (
+                          <span key={idx} className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
+                            <ApperIcon name="Check" className="h-3 w-3 mr-1" />
+                            {reason}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="flex justify-end space-x-2">
+                      <Button variant="ghost" size="sm" onClick={() => navigate(`/inventory/${recommendation.vehicleId}`)}>
+                        View Details
+                      </Button>
+                      <Button variant="primary" size="sm">
+                        Schedule Test Drive
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+                
+                {aiRecommendations.recommendations.length > 3 && (
+                  <div className="text-center pt-2">
+                    <Button variant="ghost">
+                      View All {aiRecommendations.recommendations.length} Recommendations
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </Card>
+          )}
+
           {/* Interested Vehicles */}
           {interestedVehicles.length > 0 && (
             <Card>
-              <h3 className="text-lg font-semibold text-slate-900 mb-4">Interested Vehicles</h3>
+              <h3 className="text-lg font-semibold text-slate-900 mb-4">Previously Interested Vehicles</h3>
               <div className="space-y-3">
                 {interestedVehicles.map((vehicle) => (
                   <div key={vehicle.Id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-100">
