@@ -11,7 +11,7 @@ import DealDesk from "@/components/pages/DealDesk"
 import Reports from "@/components/pages/Reports"
 import Settings from "@/components/pages/Settings"
 import CustomerPortal from "@/components/pages/CustomerPortal"
-
+import Reconditioning from "@/components/pages/Reconditioning"
 function App() {
   return (
     <Router>
@@ -27,7 +27,8 @@ function App() {
             <Route path="deals" element={<DealDesk />} />
             <Route path="reports" element={<Reports />} />
             <Route path="settings" element={<Settings />} />
-            <Route path="customer-portal" element={<CustomerPortal />} />
+<Route path="customer-portal" element={<CustomerPortal />} />
+            <Route path="reconditioning" element={<Reconditioning />} />
           </Route>
         </Routes>
         

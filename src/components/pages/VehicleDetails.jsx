@@ -283,7 +283,7 @@ const VehicleDetails = () => {
           </Card>
 
           {/* Quick Actions */}
-          <Card>
+<Card>
             <h3 className="text-lg font-semibold text-slate-900 mb-4">Quick Actions</h3>
             <div className="space-y-3">
               {vehicle.status === "Available" && (
@@ -323,6 +323,15 @@ const VehicleDetails = () => {
                   </Button>
                 </>
               )}
+              
+              <Button 
+                variant="primary" 
+                className="w-full"
+                onClick={() => navigate(`/reconditioning?vehicleId=${vehicle.Id}`)}
+              >
+                <ApperIcon name="Wrench" />
+                Schedule Reconditioning
+              </Button>
               
               <Button variant="secondary" className="w-full">
                 <ApperIcon name="Users" />

@@ -1,0 +1,53 @@
+[
+  {
+    "Id": 1,
+    "name": "Mike Rodriguez",
+    "email": "mike.rodriguez@dealerflow.com",
+    "phone": "(555) 123-4567",
+    "specialties": ["Detailing", "Interior Cleaning"],
+    "schedule": {
+      "monday": {"start": "08:00", "end": "17:00"},
+      "tuesday": {"start": "08:00", "end": "17:00"},
+      "wednesday": {"start": "08:00", "end": "17:00"},
+      "thursday": {"start": "08:00", "end": "17:00"},
+      "friday": {"start": "08:00", "end": "16:00"}
+    },
+    "status": "Available",
+    "rating": 4.8,
+    "completedJobs": 156
+  },
+  {
+    "Id": 2,
+    "name": "Sarah Chen",
+    "email": "sarah.chen@dealerflow.com",
+    "phone": "(555) 234-5678",
+    "specialties": ["Mechanical Inspection", "Engine Diagnostics"],
+    "schedule": {
+      "monday": {"start": "07:00", "end": "16:00"},
+      "tuesday": {"start": "07:00", "end": "16:00"},
+      "wednesday": {"start": "07:00", "end": "16:00"},
+      "thursday": {"start": "07:00", "end": "16:00"},
+      "friday": {"start": "07:00", "end": "15:00"}
+    },
+    "status": "Busy",
+    "rating": 4.9,
+    "completedJobs": 203
+  },
+  {
+    "Id": 3,
+    "name": "David Thompson",
+    "email": "david.thompson@dealerflow.com",
+    "phone": "(555) 345-6789",
+    "specialties": ["Body Work", "Paint", "Collision Repair"],
+    "schedule": {
+      "monday": {"start": "09:00", "end": "18:00"},
+      "tuesday": {"start": "09:00", "end": "18:00"},
+      "wednesday": {"start": "09:00", "end": "18:00"},
+      "thursday": {"start": "09:00", "end": "18:00"},
+      "friday": {"start": "09:00", "end": "17:00"}
+    },
+    "status": "Available",
+    "rating": 4.7,
+    "completedJobs": 89
+  }
+]

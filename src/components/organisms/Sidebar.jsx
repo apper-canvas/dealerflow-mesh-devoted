@@ -10,9 +10,9 @@ const navigation = [
     { name: "Deal Desk", path: "/deals", icon: "FileText" },
     { name: "Customer Portal", path: "/customer-portal", icon: "Upload" },
     { name: "Reports", path: "/reports", icon: "BarChart3" },
-    { name: "Settings", path: "/settings", icon: "Settings" }
+{ name: "Settings", path: "/settings", icon: "Settings" },
+    { name: "Reconditioning", path: "/reconditioning", icon: "Wrench" }
   ];
-
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
       <div className="p-6 border-b border-slate-200">

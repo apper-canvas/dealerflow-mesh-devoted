@@ -1,0 +1,65 @@
+[
+  {
+    "Id": 1,
+    "vehicleId": 1,
+    "serviceType": "Full Detail",
+    "status": "In Progress",
+    "technicianId": 1,
+    "startDate": "2024-01-15T09:00:00Z",
+    "endDate": "2024-01-15T15:00:00Z",
+    "estimatedHours": 6,
+    "actualHours": 4,
+    "priority": "Medium",
+    "notes": "Interior deep clean and exterior wax needed",
+    "checklist": [
+      {"item": "Exterior wash", "completed": true},
+      {"item": "Interior vacuum", "completed": true},
+      {"item": "Dashboard cleaning", "completed": false},
+      {"item": "Window cleaning", "completed": false}
+    ],
+    "createdDate": "2024-01-14T10:00:00Z",
+    "updatedDate": "2024-01-15T12:00:00Z"
+  },
+  {
+    "Id": 2,
+    "vehicleId": 3,
+    "serviceType": "Mechanical Inspection",
+    "status": "Scheduled",
+    "technicianId": 2,
+    "startDate": "2024-01-16T08:00:00Z",
+    "endDate": "2024-01-16T12:00:00Z",
+    "estimatedHours": 4,
+    "actualHours": 0,
+    "priority": "High",
+    "notes": "Engine diagnostic and brake inspection required",
+    "checklist": [
+      {"item": "Engine diagnostic", "completed": false},
+      {"item": "Brake inspection", "completed": false},
+      {"item": "Fluid levels check", "completed": false},
+      {"item": "Tire condition", "completed": false}
+    ],
+    "createdDate": "2024-01-14T11:30:00Z",
+    "updatedDate": "2024-01-14T11:30:00Z"
+  },
+  {
+    "Id": 3,
+    "vehicleId": 2,
+    "serviceType": "Body Work",
+    "status": "Complete",
+    "technicianId": 3,
+    "startDate": "2024-01-13T09:00:00Z",
+    "endDate": "2024-01-13T17:00:00Z",
+    "estimatedHours": 8,
+    "actualHours": 7,
+    "priority": "Low",
+    "notes": "Minor scratch repair on passenger door",
+    "checklist": [
+      {"item": "Sand affected area", "completed": true},
+      {"item": "Apply primer", "completed": true},
+      {"item": "Paint application", "completed": true},
+      {"item": "Clear coat finish", "completed": true}
+    ],
+    "createdDate": "2024-01-12T14:00:00Z",
+    "updatedDate": "2024-01-13T17:30:00Z"
+  }
+]
