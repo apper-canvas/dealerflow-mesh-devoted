@@ -3,22 +3,29 @@ import { useNavigate } from "react-router-dom";
 import VehicleGrid from "@/components/organisms/VehicleGrid";
 import SearchBar from "@/components/molecules/SearchBar";
 import FilterDropdown from "@/components/molecules/FilterDropdown";
+import BranchSelector from "@/components/molecules/BranchSelector";
+import TransferRequestModal from "@/components/molecules/TransferRequestModal";
 import Button from "@/components/atoms/Button";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
 import ApperIcon from "@/components/ApperIcon";
 import { vehicleService } from "@/services/api/vehicleService";
+import { branchService } from "@/services/api/branchService";
+import { toast } from "react-toastify";
 
 const Inventory = () => {
   const navigate = useNavigate();
-  const [vehicles, setVehicles] = useState([]);
+const [vehicles, setVehicles] = useState([]);
   const [filteredVehicles, setFilteredVehicles] = useState([]);
+  const [branches, setBranches] = useState([]);
+  const [selectedBranch, setSelectedBranch] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState(null);
   const [makeFilter, setMakeFilter] = useState(null);
   const [viewMode, setViewMode] = useState("grid");
+  const [showTransferModal, setShowTransferModal] = useState(false);
 
   const statusOptions = [
     { value: "", label: "All Status" },
@@ -27,11 +34,35 @@ const Inventory = () => {
     { value: "Sold", label: "Sold" }
   ];
 
-  const loadVehicles = async () => {
+const loadData = async () => {
     setLoading(true);
     setError("");
     try {
-      const data = await vehicleService.getAll();
+      const [vehicleData, branchData] = await Promise.all([
+        vehicleService.getAll(),
+        branchService.getAll()
+      ]);
+      setVehicles(vehicleData);
+      setFilteredVehicles(vehicleData);
+      setBranches(branchData);
+      
+      // Set default branch if none selected
+      if (!selectedBranch && branchData.length > 0) {
+        setSelectedBranch(branchData[0]);
+      }
+    } catch (err) {
+      setError("Failed to load data. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadVehicles = async () => {
+    if (!selectedBranch) return;
+    
+    setLoading(true);
+    try {
+      const data = await vehicleService.getByBranch(selectedBranch.Id);
       setVehicles(data);
       setFilteredVehicles(data);
     } catch (err) {
@@ -42,8 +73,29 @@ const Inventory = () => {
   };
 
   useEffect(() => {
-    loadVehicles();
+    loadData();
   }, []);
+
+  useEffect(() => {
+    if (selectedBranch) {
+      loadVehicles();
+    }
+  }, [selectedBranch]);
+
+  const handleBranchChange = (branch) => {
+    setSelectedBranch(branch);
+  };
+
+  const handleTransferRequest = async (transferData) => {
+    try {
+      await vehicleService.createTransferRequest(transferData);
+      toast.success("Transfer request created successfully!");
+      setShowTransferModal(false);
+      loadVehicles(); // Refresh inventory
+    } catch (err) {
+      toast.error("Failed to create transfer request. Please try again.");
+    }
+  };
 
   // Create make options from vehicles
   const makeOptions = [
@@ -84,11 +136,11 @@ const Inventory = () => {
     setSearchTerm(term);
   };
 
-  const availableCount = vehicles.filter(v => v.status === "Available").length;
+const availableCount = vehicles.filter(v => v.status === "Available").length;
   const totalValue = filteredVehicles.reduce((sum, v) => sum + (v.askingPrice || 0), 0);
 
   if (loading) return <Loading />;
-  if (error) return <Error message={error} onRetry={loadVehicles} />;
+  if (error) return <Error message={error} onRetry={loadData} />;
 
   return (
     <div className="space-y-6">
@@ -128,7 +180,13 @@ const Inventory = () => {
           />
         </div>
         
-        <div className="flex items-center space-x-4">
+<div className="flex items-center space-x-4">
+          <BranchSelector
+            branches={branches}
+            selectedBranch={selectedBranch}
+            onChange={handleBranchChange}
+          />
+          
           <FilterDropdown
             options={statusOptions}
             value={statusFilter}
@@ -144,6 +202,15 @@ const Inventory = () => {
             placeholder="All Makes"
             label="Make"
           />
+          
+          <Button
+            variant="secondary"
+            onClick={() => setShowTransferModal(true)}
+            disabled={filteredVehicles.length === 0}
+          >
+            <ApperIcon name="ArrowLeftRight" size={16} />
+            Transfer Request
+          </Button>
           
           <div className="flex items-center space-x-2 border border-slate-200 rounded-lg p-1">
             <Button
@@ -179,12 +246,21 @@ const Inventory = () => {
       </div>
 
       {/* Vehicle Grid */}
-      <VehicleGrid 
+<VehicleGrid 
         vehicles={filteredVehicles}
         loading={false}
         error=""
       />
-    </div>
+
+      <TransferRequestModal
+        isOpen={showTransferModal}
+        onClose={() => setShowTransferModal(false)}
+        onSubmit={handleTransferRequest}
+        branches={branches}
+        selectedBranch={selectedBranch}
+        vehicles={filteredVehicles.filter(v => v.status === "Available")}
+      />
+</div>
   );
 };
 

@@ -5,9 +5,30 @@ let vehicles = [...vehiclesData];
 const delay = () => new Promise(resolve => setTimeout(resolve, Math.random() * 300 + 200));
 
 export const vehicleService = {
-  async getAll() {
+async getAll() {
     await delay();
-    return vehicles.map(vehicle => ({ ...vehicle }));
+    return vehicles.map(vehicle => ({ 
+      ...vehicle, 
+      branchId: vehicle.branchId || 1 // Default to branch 1 if not set
+    }));
+  },
+
+  async getByBranch(branchId) {
+    await delay();
+    return vehicles
+      .filter(vehicle => (vehicle.branchId || 1) === branchId)
+      .map(vehicle => ({ 
+        ...vehicle, 
+        branchId: vehicle.branchId || 1
+      }));
+  },
+
+  async createTransferRequest(transferData) {
+    await delay();
+    // In a real app, this would create a transfer request record
+    // For now, we'll just simulate success
+    console.log('Transfer request created:', transferData);
+    return { success: true, requestId: Date.now() };
   },
 
   async getById(id) {
@@ -67,5 +88,5 @@ export const vehicleService = {
       features: ["Backup Camera", "Bluetooth", "Cruise Control", "Power Windows"],
       description: "Vehicle data retrieved from VIN database"
     };
-  }
+}
 };

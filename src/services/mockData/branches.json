@@ -1,0 +1,72 @@
+[
+  {
+    "Id": 1,
+    "name": "Main Branch",
+    "location": "Downtown Location",
+    "address": "123 Main Street, Downtown, NY 10001",
+    "phone": "(555) 123-4567",
+    "email": "main@dealerflow.com",
+    "manager": "John Smith",
+    "status": "Active",
+    "vehicleCapacity": 150,
+    "currentVehicles": 87,
+    "createdAt": "2023-01-15T08:00:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "Id": 2,
+    "name": "North Branch",
+    "location": "North Side Location",
+    "address": "456 North Avenue, Uptown, NY 10002",
+    "phone": "(555) 234-5678",
+    "email": "north@dealerflow.com",
+    "manager": "Sarah Johnson",
+    "status": "Active",
+    "vehicleCapacity": 120,
+    "currentVehicles": 65,
+    "createdAt": "2023-03-20T09:15:00.000Z",
+    "updatedAt": "2024-01-10T14:20:00.000Z"
+  },
+  {
+    "Id": 3,
+    "name": "South Branch",
+    "location": "South Side Location", 
+    "address": "789 South Boulevard, Southtown, NY 10003",
+    "phone": "(555) 345-6789",
+    "email": "south@dealerflow.com",
+    "manager": "Mike Wilson",
+    "status": "Active",
+    "vehicleCapacity": 100,
+    "currentVehicles": 42,
+    "createdAt": "2023-06-10T11:30:00.000Z",
+    "updatedAt": "2024-01-05T16:45:00.000Z"
+  },
+  {
+    "Id": 4,
+    "name": "East Branch",
+    "location": "East Side Location",
+    "address": "321 East Street, Eastville, NY 10004", 
+    "phone": "(555) 456-7890",
+    "email": "east@dealerflow.com",
+    "manager": "Lisa Davis",
+    "status": "Active",
+    "vehicleCapacity": 80,
+    "currentVehicles": 31,
+    "createdAt": "2023-09-05T13:45:00.000Z",
+    "updatedAt": "2023-12-20T11:10:00.000Z"
+  },
+  {
+    "Id": 5,
+    "name": "West Branch",
+    "location": "West Side Location",
+    "address": "654 West Road, Westmont, NY 10005",
+    "phone": "(555) 567-8901", 
+    "email": "west@dealerflow.com",
+    "manager": "Tom Brown",
+    "status": "Under Construction",
+    "vehicleCapacity": 90,
+    "currentVehicles": 0,
+    "createdAt": "2023-11-15T15:20:00.000Z",
+    "updatedAt": "2024-01-01T09:00:00.000Z"
+  }
+]
