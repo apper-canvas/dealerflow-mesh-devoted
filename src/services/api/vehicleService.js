@@ -85,8 +85,36 @@ async getAll() {
       fuelType: "Gasoline",
       color: "Unknown",
       marketValue: 32000,
-      features: ["Backup Camera", "Bluetooth", "Cruise Control", "Power Windows"],
+features: ["Backup Camera", "Bluetooth", "Cruise Control", "Power Windows"],
       description: "Vehicle data retrieved from VIN database"
     };
-}
+  },
+
+  // Publication management methods
+  async updatePublicationStatus(id, platform, status, listingId = null) {
+    await delay(300);
+    const vehicle = vehicles.find(v => v.Id === parseInt(id));
+    if (!vehicle) throw new Error('Vehicle not found');
+    
+    if (!vehicle.publications) {
+      vehicle.publications = {};
+    }
+    
+    vehicle.publications[platform] = {
+      status,
+      listingId,
+      publishedAt: status === 'published' ? new Date().toISOString() : null,
+      lastUpdated: new Date().toISOString()
+    };
+    
+    return vehicle;
+  },
+
+  async getPublicationStatus(id) {
+    await delay(200);
+    const vehicle = vehicles.find(v => v.Id === parseInt(id));
+    if (!vehicle) throw new Error('Vehicle not found');
+    
+    return vehicle.publications || {};
+  }
 };

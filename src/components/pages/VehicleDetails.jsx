@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import Card from "@/components/atoms/Card";
-import Button from "@/components/atoms/Button";
-import Badge from "@/components/atoms/Badge";
-import Loading from "@/components/ui/Loading";
-import Error from "@/components/ui/Error";
-import ApperIcon from "@/components/ApperIcon";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { vehicleService } from "@/services/api/vehicleService";
 import { toast } from "react-toastify";
+import ApperIcon from "@/components/ApperIcon";
+import Inventory from "@/components/pages/Inventory";
+import Leads from "@/components/pages/Leads";
+import Reconditioning from "@/components/pages/Reconditioning";
+import Error from "@/components/ui/Error";
+import Loading from "@/components/ui/Loading";
+import Button from "@/components/atoms/Button";
+import Badge from "@/components/atoms/Badge";
+import Card from "@/components/atoms/Card";
+import ListingManager from "@/components/ListingManager";
 
 const VehicleDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [vehicle, setVehicle] = useState(null);
+const [vehicle, setVehicle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
+  const [showListingManager, setShowListingManager] = useState(false);
   const loadVehicle = async () => {
     setLoading(true);
     setError("");
@@ -47,8 +51,7 @@ const VehicleDetails = () => {
       toast.error("Failed to update vehicle status");
     }
   };
-
-  const handleDelete = async () => {
+const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this vehicle?")) {
       try {
         await vehicleService.delete(id);
@@ -58,6 +61,10 @@ const VehicleDetails = () => {
         toast.error("Failed to delete vehicle");
       }
     }
+  };
+
+  const handleListingUpdate = () => {
+    loadVehicle(); // Refresh vehicle data to show updated publication status
   };
 
   if (loading) return <Loading />;
@@ -277,13 +284,68 @@ const VehicleDetails = () => {
               
               <div className="flex justify-between items-center">
                 <span className="text-sm text-slate-500">Condition</span>
-                <Badge variant="success">{vehicle.condition}</Badge>
+<Badge variant="success">{vehicle.condition}</Badge>
               </div>
             </div>
           </Card>
 
+          {/* Listing Management */}
+          <Card>
+            <h3 className="text-lg font-semibold text-slate-900 mb-4">Online Listings</h3>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                <div className="flex items-center space-x-3">
+                  <ApperIcon name="Globe" className="text-blue-600" />
+                  <div>
+                    <p className="font-medium text-slate-900">Cars.com</p>
+                    <p className="text-sm text-slate-500">
+                      {vehicle.publications?.carscom?.status === 'published' ? 'Published' : 
+                       vehicle.publications?.carscom?.status === 'pending' ? 'Publishing...' : 'Not Published'}
+                    </p>
+                  </div>
+                </div>
+                <Badge variant={
+                  vehicle.publications?.carscom?.status === 'published' ? 'success' :
+                  vehicle.publications?.carscom?.status === 'pending' ? 'warning' : 'secondary'
+                }>
+                  {vehicle.publications?.carscom?.status === 'published' ? 'Live' :
+                   vehicle.publications?.carscom?.status === 'pending' ? 'Processing' : 'Inactive'}
+                </Badge>
+              </div>
+
+              <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                <div className="flex items-center space-x-3">
+                  <ApperIcon name="Car" className="text-orange-600" />
+                  <div>
+                    <p className="font-medium text-slate-900">AutoTrader</p>
+                    <p className="text-sm text-slate-500">
+                      {vehicle.publications?.autotrader?.status === 'published' ? 'Published' : 
+                       vehicle.publications?.autotrader?.status === 'pending' ? 'Publishing...' : 'Not Published'}
+                    </p>
+                  </div>
+                </div>
+                <Badge variant={
+                  vehicle.publications?.autotrader?.status === 'published' ? 'success' :
+                  vehicle.publications?.autotrader?.status === 'pending' ? 'warning' : 'secondary'
+                }>
+                  {vehicle.publications?.autotrader?.status === 'published' ? 'Live' :
+                   vehicle.publications?.autotrader?.status === 'pending' ? 'Processing' : 'Inactive'}
+                </Badge>
+              </div>
+
+              <Button 
+                variant="primary" 
+                className="w-full"
+                onClick={() => setShowListingManager(true)}
+              >
+                <ApperIcon name="Upload" />
+                Manage Listings
+              </Button>
+            </div>
+          </Card>
+
           {/* Quick Actions */}
-<Card>
+          <Card>
             <h3 className="text-lg font-semibold text-slate-900 mb-4">Quick Actions</h3>
             <div className="space-y-3">
               {vehicle.status === "Available" && (
@@ -346,6 +408,15 @@ const VehicleDetails = () => {
           </Card>
         </div>
       </div>
+
+      {/* Listing Manager Modal */}
+      {showListingManager && (
+        <ListingManager
+          vehicle={vehicle}
+          onClose={() => setShowListingManager(false)}
+          onUpdate={handleListingUpdate}
+        />
+      )}
     </div>
   );
 };
